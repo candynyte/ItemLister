@@ -6,32 +6,81 @@ let itemList = document.querySelector("#items");
 form.addEventListener("submit", addItem);
 console.log(itemList);
 
-function addItem(e)
-{
-    e.preventDefault();
-    const formInput = document.querySelector("#formInput");
+// Remove item event
 
-    // Append to list
+itemList.addEventListener("click",removeItem);
+
+
+function hide(element){
+    element.style = "display:none;";
     
-    if (formInput.value === "") 
+}
+
+function addItem(e)
+{   
+    // preventing the events default behaviour (submit).
+    e.preventDefault();
+    let formInput = (document.querySelector("#formInput").value);
+
+    // Append items to itemList
+    
+    if (formInput === "") 
     {
         // Warning if input is empty.
 
-        // const main = document.querySelector("#main");
-        // const warning = document.createElement("h6");
-        // warning.className = "text-danger";
-        // warning.innerHTML = "Please enter item name.";
+        // Dont forget to add smoothness !!
 
-        // setTimeout(warning.setAttribute("style","display:none;"), 5000);
-        // main.insertBefore(warning,form);  
+        const main = document.querySelector("#main");
+
+        // creating warning element.
+        let warning = document.createElement("h6");
+        warning.id = "warning";
+        warning.className = "text-danger";
+        warning.innerHTML = "Please enter item name.";
+        setTimeout(function(){hide(warning)}, 1000);
+        main.insertBefore(warning,form);
+
+        
     }
     else
     {
-    const newItem = document.createElement("li");
-    newItem.className = "list-group-item";
-    newItem.innerHTML = (formInput.value + " <button class='btn btn-danger btn-sm float-end'>X</button>"); 
-    itemList.insertBefore(newItem,itemList.children[-1]);
+
+        // creating li element
+        let li = document.createElement("li");
+        li.className = "list-group-item";
+
+
+        // alternative way.
+
+        // newItem.innerHTML = (formInput.value + " <button class='btn btn-danger btn-sm float-end'>X</button>"); 
+        // itemList.insertBefore(newItem,itemList.children[-1]);
+
+        li.appendChild(document.createTextNode(formInput));
+        itemList.appendChild(li);
+
+        // Creating the button for removing items
+        let deleteBtn = document.createElement("button");
+        deleteBtn.className = "btn btn-danger btn-sm float-end delete";
+        deleteBtn.appendChild(document.createTextNode("X"));
+        li.appendChild(deleteBtn);
+        formInput = "";
     }
-    formInput.value = "";
    
 }
+
+
+function removeItem(e){
+
+    // target gives us the location of event and if location's classlist contains "delete" that means we are clicking the button. 
+
+    if(e.target.classList.contains("delete"))
+    { 
+        itemList.removeChild(e.target.parentElement);
+        
+        // if(confirm("Are you sure ? ")){
+        //     itemList.removeChild(e.target.parentElement);
+        // }
+        // console.log(1)
+    }
+}
+
