@@ -20,11 +20,11 @@ function addItem(e)
 {   
     // preventing the events default behaviour (submit).
     e.preventDefault();
-    let formInput = (document.querySelector("#formInput").value);
+    var formInput = document.querySelector("#formInput");
 
     // Append items to itemList
     
-    if (formInput === "") 
+    if (formInput.value === "") 
     {
         // Warning if input is empty.
 
@@ -55,7 +55,7 @@ function addItem(e)
         // newItem.innerHTML = (formInput.value + " <button class='btn btn-danger btn-sm float-end'>X</button>"); 
         // itemList.insertBefore(newItem,itemList.children[-1]);
 
-        li.appendChild(document.createTextNode(formInput));
+        li.appendChild(document.createTextNode(formInput.value));
         itemList.appendChild(li);
 
         // Creating the button for removing items
@@ -63,8 +63,8 @@ function addItem(e)
         deleteBtn.className = "btn btn-danger btn-sm float-end delete";
         deleteBtn.appendChild(document.createTextNode("X"));
         li.appendChild(deleteBtn);
-        formInput = "";
     }
+    formInput.value = "";
    
 }
 
@@ -76,7 +76,7 @@ function removeItem(e){
     if(e.target.classList.contains("delete"))
     { 
         itemList.removeChild(e.target.parentElement);
-        
+
         // if(confirm("Are you sure ? ")){
         //     itemList.removeChild(e.target.parentElement);
         // }
