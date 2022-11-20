@@ -1,14 +1,17 @@
 const form = document.querySelector("#addForm");
 let itemList = document.querySelector("#items");
+let filterBar = document.querySelector("#filter");
 
 // Form submit event
 
 form.addEventListener("submit", addItem);
-console.log(itemList);
+// console.log(itemList);
 
 // Remove item event
 
 itemList.addEventListener("click",removeItem);
+filterBar.addEventListener("keyup",filterItems)
+// itemList.addEventListener("click",tagForDone);
 
 
 function hide(element){
@@ -63,6 +66,12 @@ function addItem(e)
         deleteBtn.className = "btn btn-danger btn-sm float-end delete";
         deleteBtn.appendChild(document.createTextNode("X"));
         li.appendChild(deleteBtn);
+
+        // Done Btn
+        // let doneBtn = document.createElement("button"); 
+        // doneBtn.className = "btn btn-success btn-sm float-end done mr-4"
+        // doneBtn.appendChild(document.createTextNode("D"));
+        // li.appendChild(doneBtn);
     }
     formInput.value = "";
    
@@ -84,3 +93,30 @@ function removeItem(e){
     }
 }
 
+
+function filterItems(e){
+    let filterBarInput = filterBar.value.toLowerCase();
+    let items = document.getElementsByTagName("li");
+    
+    for(i=0; i<items.length; i++){
+
+        textofItem = items[i].textContent || items[i].innerText;
+        if(textofItem.toLowerCase().indexOf(filterBarInput) > -1){
+            items[i].style.display="";
+        }else{
+            items[i].style.display="none";
+        }
+
+    }
+}
+
+
+
+
+// function tagForDone(e){
+//     if(e.target.classList.contains("done"))
+//     { 
+//         e.target.parentElement.style.textDecoration = "line-through"        
+//     }
+
+// }
