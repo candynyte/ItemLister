@@ -74,7 +74,6 @@ function addItem(e)
    
 }
 
-
 function removeItem(e){
 
     // e.target gives us the location of event and if location's classlist contains "delete" that means we are clicking the button! 
@@ -84,7 +83,6 @@ function removeItem(e){
         itemList.removeChild(e.target.parentElement);
     }
 }
-
 
 function filterItems(e){
     // Parsing to lowercase to avoid conflict due to case sensitivity.
