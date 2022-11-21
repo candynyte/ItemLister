@@ -87,18 +87,26 @@ function removeItem(e){
 
 
 function filterItems(e){
+    // Parsing to lowercase to avoid conflict due to case sensitivity.
     let filterBarInput = e.target.value.toLowerCase();
     let items = document.getElementsByTagName("li");
     
+    // Turning HTMLCollection into array to use forEach function.
     Array.from(items).forEach(function(item){
+
+        // firstChild takes the first attribute of our element. We have a text node and a button inside the element so it takes the text node.(firstElementChild takes the button.)
         let textofItem = item.firstChild.textContent;
+
+        // indexOf function returns the index number of given value in the main string. If index number isn't equal to -1 there are matches between filterinput and textcontent of the item.
         if(textofItem.toLowerCase().indexOf(filterBarInput) != -1){
             item.style.display = "block";
         }else{
             item.style.display="none";
-        }    });
 
-    // Alternate way
+        }
+    });
+
+    // Alternate way for filtering loop
 
     // for(i=0; i<items.length; i++){
     //     textofItem = items[i].textContent || items[i].innerText;
